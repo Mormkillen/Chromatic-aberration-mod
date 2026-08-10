@@ -1,8 +1,0 @@
-{
-  "config.chromaticaberration.title": "Chromatic aberration",
-  "config.chromaticaberration.intensity": "色差强度调节: %d%%",
-  "config.chromaticaberration.disable_center_deadzone": "禁用 中间半屏不渲染色差",
-  "config.chromaticaberration.always_visible": "禁用不运动时不进行渲染",
-  "config.chromaticaberration.disable_speed_scaling": "禁用速度改变效果强度",
-  "config.chromaticaberration.intensity_hint": "色差强度越高，红蓝分离越明显"
-}
