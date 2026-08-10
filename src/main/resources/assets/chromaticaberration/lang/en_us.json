@@ -1,0 +1,8 @@
+{
+  "config.chromaticaberration.title": "Chromatic aberration",
+  "config.chromaticaberration.intensity": "Intensity: %d%%",
+  "config.chromaticaberration.disable_center_deadzone": "Disable center half-screen dead zone",
+  "config.chromaticaberration.always_visible": "Render aberration while idle",
+  "config.chromaticaberration.disable_speed_scaling": "Disable speed-based intensity",
+  "config.chromaticaberration.intensity_hint": "Higher intensity means stronger red/blue fringing"
+}
