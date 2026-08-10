@@ -1,0 +1,20 @@
+{
+  "mappings": {
+    "com/mormkillen/chromaticaberration/mixin/GameRendererMixin": {
+      "renderWorld": "Lnet/minecraft/class_757;method_3188(FJ)V"
+    },
+    "com/mormkillen/chromaticaberration/mixin/PostEffectProcessorAccessor": {
+      "passes": "field_1497:Ljava/util/List;"
+    }
+  },
+  "data": {
+    "named:intermediary": {
+      "com/mormkillen/chromaticaberration/mixin/GameRendererMixin": {
+        "renderWorld": "Lnet/minecraft/class_757;method_3188(FJ)V"
+      },
+      "com/mormkillen/chromaticaberration/mixin/PostEffectProcessorAccessor": {
+        "passes": "field_1497:Ljava/util/List;"
+      }
+    }
+  }
+}
