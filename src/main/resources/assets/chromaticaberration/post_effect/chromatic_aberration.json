@@ -1,0 +1,46 @@
+{
+    "targets": {
+        "swap": {}
+    },
+    "passes": [
+        {
+            "vertex_shader": "chromaticaberration:post/speed_aberration",
+            "fragment_shader": "chromaticaberration:post/speed_aberration",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main"
+                }
+            ],
+            "output": "swap",
+            "uniforms": [
+                {
+                    "name": "Intensity",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                },
+                {
+                    "name": "UseDeadzone",
+                    "type": "float",
+                    "values": [ 1.0 ]
+                },
+                {
+                    "name": "DebugMode",
+                    "type": "float",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "vertex_shader": "chromaticaberration:post/speed_aberration_blit",
+            "fragment_shader": "chromaticaberration:post/speed_aberration_blit",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap"
+                }
+            ],
+            "output": "minecraft:main"
+        }
+    ]
+}
