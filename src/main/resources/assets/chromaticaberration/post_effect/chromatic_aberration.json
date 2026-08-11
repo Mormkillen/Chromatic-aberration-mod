@@ -1,0 +1,33 @@
+{
+    "targets": {
+        "swap": {}
+    },
+    "passes": [
+        {
+            "program": "chromaticaberration:post/speed_aberration",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "minecraft:main"
+                }
+            ],
+            "output": "swap",
+            "uniforms": [
+                {
+                    "name": "Intensity",
+                    "values": [ 0.0 ]
+                }
+            ]
+        },
+        {
+            "program": "chromaticaberration:post/speed_aberration_blit",
+            "inputs": [
+                {
+                    "sampler_name": "In",
+                    "target": "swap"
+                }
+            ],
+            "output": "minecraft:main"
+        }
+    ]
+}
