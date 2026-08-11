@@ -1,5 +1,7 @@
 # Speed Chromatic Aberration
 
+For mod download, please go to：https://modrinth.com/project/r0tit6tM
+
 A Fabric client-side mod that renders a chromatic aberration post-processing effect from the player's camera perspective. By default, the effect intensity changes in real time with camera movement speed — the faster you move, the more pronounced the aberration. A fixed intensity can also be set in the configuration.
 
 Actively maintained.
@@ -22,5 +24,3 @@ The config file is stored at `config/chromaticaberration.json`. The mod runs nor
 This mod detects shader packs via the Iris official API (reflection call, no hard dependency). When an Iris shader pack is active, this mod automatically skips post-processing rendering to avoid conflicts with the shader pipeline; rendering resumes automatically when shaders are disabled.
 
 ⚠️ When deploying, you must first delete the old JAR in the `mods` folder — having two JARs with the same Mod ID will cause the Fabric Loader to refuse to start.
-
-Are you ready?
