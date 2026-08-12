@@ -1,0 +1,79 @@
+plugins {
+	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'java'
+}
+
+// Debug build naming (per project convention):
+//   release:  speed-chromatic-aberration-1.0.0.jar
+//   大修:      speed-chromatic-aberration-1.0.0-debug2.0.0.jar  (bump debug MAJOR)
+//   小修:      speed-chromatic-aberration-1.0.0-debug1.2.0.jar  (bump debug MINOR)
+// Multi-version builds append +mc<version>, e.g. ...-debug4.0.0+mc1.20.4.jar
+// All knobs live in gradle.properties (see switch-version.sh).
+def debugVersion = project.findProperty("debug_version")?.toString()?.trim()
+def mcTag = project.findProperty("mc_tag")?.toString()?.trim()
+version = project.mod_version + (debugVersion ? "-debug" + debugVersion : "") + (mcTag ? "+mc" + mcTag : "")
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	// Mod Menu (optional integration)
+	maven { url = "https://maven.terraformersmc.com/releases/" }
+}
+
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
+	// Yarn for <=1.21.11. Starting with 26.1 Mojang ships Minecraft
+	// unobfuscated (mappings_kind=mojmap): no mappings dependency exists and
+	// loom runs without a remapping step, so plain configurations must be
+	// used instead of modImplementation/modCompileOnly.
+	if (project.findProperty("mappings_kind") == "mojmap") {
+		implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+		compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	} else {
+		mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+
+		modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+		modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+		modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	}
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version,
+				"minecraft_dep": project.minecraft_dep,
+				"java_dep": project.findProperty("java_dep") ?: ">=17"
+	}
+}
+
+def javaRelease = (project.findProperty("java_release") ?: "17").toString().toInteger()
+def toolchainJdk = (project.findProperty("java_toolchain") ?: "17").toString().toInteger()
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = javaRelease
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(toolchainJdk)
+	}
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archives_base_name}" }
+	}
+}
