@@ -1,6 +1,7 @@
 # Speed Chromatic Aberration
 
 For mod download, please go to：https://modrinth.com/project/r0tit6tM
+Please have a look branches
 
 A Fabric client-side mod that renders a chromatic aberration post-processing effect from the player's camera perspective. By default, the effect intensity changes in real time with camera movement speed — the faster you move, the more pronounced the aberration. A fixed intensity can also be set in the configuration.
 
