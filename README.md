@@ -16,17 +16,7 @@ Open the mod config via Mod Menu:
 Configuration is stored in `config/chromaticaberration.json`. The mod runs fine without Mod Menu. Debug: press F8 in-game to cycle shader debug modes.
 
 ## Shader Pack Avoidance
-
 The mod detects active shader packs via the Iris official API (reflection-based, no hard dependency). When an Iris shader pack is enabled, the mod automatically skips post-processing rendering to avoid conflicting with the shader pipeline; rendering resumes automatically when shaders are disabled.
-
-## Building
-
-Switch versions first, then build with the matching Gradle / JDK:
-
-```bash
-./switch-version.sh <mc_version>
-gradle clean build
-```
 
 ⚠️ Always delete the old jar from `mods/` before deploying — Fabric Loader will refuse to start if two jars share the same Mod ID.
 
