@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "com.mormkillen.chromaticaberration.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+		"GameRendererMixin",
+		"PostEffectProcessorAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
