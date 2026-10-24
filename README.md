@@ -1,24 +1,67 @@
 # Chromatic aberration mod
 
-A Fabric client-side mod that renders a chromatic aberration post-processing effect on the player camera. By default, the effect intensity scales in real time with camera movement speed — the faster you move, the stronger the aberration. You can also switch to a fixed intensity in the config.
+A Fabric client-side mod that renders a chromatic aberration post-processing effect from the player's camera. By default the strength follows camera movement speed — the faster you move, the stronger the red/blue fringing. The effect can also be pinned to a fixed strength.
 
-## Features & Configuration
+## Compatibility
 
-Open the mod config via Mod Menu:
+| | |
+| --- | --- |
+| Minecraft | 1.20.2 - 1.20.4 |
+| Fabric Loader | 0.15.0 or newer |
+| Fabric API | required |
+| Mod Menu | optional (config screen) |
+| Java | 17 or newer |
 
-| Setting | Type | Default | Description |
+## Features
+
+- **Speed-driven strength** — fades in above walking speed and ramps up smoothly, so the effect reacts to how fast you are actually moving.
+- **Clean center** — the middle of the screen stays sharp; the fringing only ramps in towards the edges, keeping the crosshair readable.
+- **Fixed-strength mode** — ignore camera speed entirely and drive the effect from the slider.
+- **Idle baseline** — optionally keep a 35% effect while standing still.
+- **Iris aware** — steps aside while an Iris shader pack is active and resumes automatically when it is disabled.
+- **Free when idle** — nothing is rendered while the strength is effectively zero.
+
+## Configuration
+
+Open the config from Mod Menu; the mod works without it. Settings are saved to `config/chromaticaberration.json`.
+
+| Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| Aberration Intensity | Slider 0%–200% | 100% | Intensity multiplier; applies immediately |
-| Disable Center Safe Zone | Toggle | Off | When on, the crosshair center area also renders aberration |
-| Render When Stationary | Toggle | Off | When on, a 35% baseline intensity is applied even while standing still |
-| Disable Speed-Based Scaling | Toggle | Off | When on, intensity is fixed by the slider and no longer affected by movement speed |
+| Aberration intensity | Slider 0–200% | 100% | Strength multiplier, applied immediately. |
+| Disable center safe zone | Toggle | Off | Apply the effect across the whole screen, including the crosshair area. |
+| Render while idle | Toggle | Off | Keep a 35% baseline effect when you are not moving. |
+| Disable speed-based intensity | Toggle | Off | Use only the slider and ignore camera speed. |
 
-Configuration is stored in `config/chromaticaberration.json`. The mod runs fine without Mod Menu. Debug: press F8 in-game to cycle shader debug modes.
+## Installation
 
-## Shader Pack Avoidance
+1. Install Fabric Loader for Minecraft 1.20.2 - 1.20.4.
+2. Put Fabric API in `mods/`; Mod Menu is optional but required for the config screen.
+3. Put the mod jar in `mods/`.
+4. Delete older copies of this mod first — Fabric refuses to start when two jars share a mod id.
 
-The mod detects active shader packs via the Iris official API (reflection-based, no hard dependency). When an Iris shader pack is enabled, the mod automatically skips post-processing rendering to avoid conflicting with the shader pipeline; rendering resumes automatically when shaders are disabled.
+## Building
 
-⚠️ Always delete the old jar from `mods/` before deploying — Fabric Loader will refuse to start if two jars share the same Mod ID.
+Each branch is a complete Gradle project with the wrapper included.
 
-If you want to talk to people without losing the upper hand, always assume before you speak that they are recording.
+```bash
+./gradlew build        # Linux / macOS
+gradlew.bat build      # Windows
+```
+
+The jar is written to `build/libs/`.
+
+## Iris and shader packs
+
+Shader packs are detected through the Iris API. While a pack is active the mod leaves the final image alone, so you get neither a doubled effect nor a fight over the framebuffer.
+
+## Debug key
+
+Press <kbd>F8</kbd> to cycle the shader debug modes: normal, passthrough copy, forced opaque alpha, alpha visualisation. Handy when reporting a rendering issue.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+---
+
+> If you want to talk to people without losing the upper hand, always assume before you speak that they are recording.
