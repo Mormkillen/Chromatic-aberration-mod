@@ -12,7 +12,7 @@ import net.minecraft.client.gl.Framebuffer;
 import net.minecraft.client.gl.PostEffectPass;
 import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.render.DefaultFramebufferSet;
-import net.minecraft.client.util.memory.ObjectPool;
+import net.minecraft.client.util.Pool;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.system.MemoryStack;
@@ -65,7 +65,7 @@ public final class AberrationRenderer {
 
 	private PostEffectProcessor processor = null;
 	/** Recycles the intermediate "swap" framebuffer (vanilla uses ObjectPool(3) too). */
-	private final ObjectPool pool = new ObjectPool(3);
+	private final Pool pool = new Pool(3);
 	/**
 	 * The pass's std140 UBO holding Intensity/UseDeadzone/DebugMode. 1.21.6+
 	 * bakes JSON uniforms into per-pass GPU buffers; there is no public setter,
